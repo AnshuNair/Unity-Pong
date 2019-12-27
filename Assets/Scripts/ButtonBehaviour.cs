@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ButtonBehaviour : MonoBehaviour
 {
-    public Text scoreText;
 
-    public void OnButtonPressed() {
-        scoreText.text = "Button was pressed";
+    public void OnButtonPressed(int sceneId) {
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(sceneId);
     }
 }
