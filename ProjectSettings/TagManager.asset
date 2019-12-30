@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Racket
   - Ball
+  - BounceWall
+  - GoalWall
   layers:
   - Default
   - TransparentFX
