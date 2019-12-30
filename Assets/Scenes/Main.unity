@@ -224,6 +224,7 @@ GameObject:
   - component: {fileID: 105083197}
   - component: {fileID: 105083196}
   - component: {fileID: 105083200}
+  - component: {fileID: 105083201}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Ball
@@ -317,6 +318,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballSpeed: 3
+--- !u!54 &105083201
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105083195}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 120
+  m_CollisionDetection: 0
 --- !u!1 &325805720
 GameObject:
   m_ObjectHideFlags: 0
@@ -328,7 +345,6 @@ GameObject:
   - component: {fileID: 325805724}
   - component: {fileID: 325805723}
   - component: {fileID: 325805722}
-  - component: {fileID: 325805721}
   m_Layer: 0
   m_Name: Divider
   m_TagString: Untagged
@@ -336,19 +352,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!65 &325805721
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 325805720}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &325805722
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -486,7 +489,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -2}
   m_LocalScale: {x: 0.08085937, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -571,6 +574,7 @@ GameObject:
   - component: {fileID: 962750533}
   - component: {fileID: 962750532}
   - component: {fileID: 962750535}
+  - component: {fileID: 962750536}
   m_Layer: 0
   m_Name: RightRacket
   m_TagString: Racket
@@ -664,6 +668,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+--- !u!54 &962750536
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962750530}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 122
+  m_CollisionDetection: 0
 --- !u!1 &968716613
 GameObject:
   m_ObjectHideFlags: 0
@@ -753,6 +773,7 @@ GameObject:
   - component: {fileID: 1260636390}
   - component: {fileID: 1260636389}
   - component: {fileID: 1260636388}
+  - component: {fileID: 1260636391}
   m_Layer: 0
   m_Name: BottomWall
   m_TagString: Untagged
@@ -769,7 +790,7 @@ Transform:
   m_GameObject: {fileID: 1260636386}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.20853254, y: -5.9004707, z: 5.8339844}
-  m_LocalScale: {x: 12.025, y: 0.05, z: 1}
+  m_LocalScale: {x: 11.87093, y: 0.05, z: 1}
   m_Children: []
   m_Father: {fileID: 1356337863}
   m_RootOrder: 2
@@ -833,6 +854,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1260636386}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &1260636391
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1260636386}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &1349171638
 GameObject:
   m_ObjectHideFlags: 0
@@ -959,7 +996,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1356337862}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.21353254, y: 1.1504705, z: -4.8339844}
+  m_LocalPosition: {x: -0.2, y: 1.15, z: -4.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1535173241}
@@ -981,6 +1018,7 @@ GameObject:
   - component: {fileID: 1359008181}
   - component: {fileID: 1359008180}
   - component: {fileID: 1359008179}
+  - component: {fileID: 1359008182}
   m_Layer: 0
   m_Name: TopWall
   m_TagString: Untagged
@@ -997,7 +1035,7 @@ Transform:
   m_GameObject: {fileID: 1359008177}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.20853254, y: 3.0995295, z: 5.8339844}
-  m_LocalScale: {x: 12.025, y: 0.05, z: 1}
+  m_LocalScale: {x: 11.87093, y: 0.05, z: 1}
   m_Children: []
   m_Father: {fileID: 1356337863}
   m_RootOrder: 3
@@ -1061,6 +1099,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1359008177}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &1359008182
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1359008177}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &1374852417
 GameObject:
   m_ObjectHideFlags: 0
@@ -1150,6 +1204,7 @@ GameObject:
   - component: {fileID: 1535173240}
   - component: {fileID: 1535173239}
   - component: {fileID: 1535173238}
+  - component: {fileID: 1535173242}
   m_Layer: 0
   m_Name: LeftWall
   m_TagString: Untagged
@@ -1230,6 +1285,22 @@ Transform:
   m_Father: {fileID: 1356337863}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1535173242
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535173237}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &1552419972
 GameObject:
   m_ObjectHideFlags: 0
@@ -1274,6 +1345,7 @@ GameObject:
   - component: {fileID: 1636114473}
   - component: {fileID: 1636114472}
   - component: {fileID: 1636114471}
+  - component: {fileID: 1636114475}
   m_Layer: 0
   m_Name: RightWall
   m_TagString: Untagged
@@ -1354,6 +1426,22 @@ Transform:
   m_Father: {fileID: 1356337863}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1636114475
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1636114470}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &1815707850
 GameObject:
   m_ObjectHideFlags: 0
@@ -1444,6 +1532,7 @@ GameObject:
   - component: {fileID: 1823837012}
   - component: {fileID: 1823837011}
   - component: {fileID: 1823837015}
+  - component: {fileID: 1823837017}
   m_Layer: 0
   m_Name: LeftRacket
   m_TagString: Racket
@@ -1537,6 +1626,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+--- !u!54 &1823837017
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823837010}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 122
+  m_CollisionDetection: 0
 --- !u!1 &1955995606
 GameObject:
   m_ObjectHideFlags: 0
