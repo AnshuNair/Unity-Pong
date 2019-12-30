@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BallMovement : MonoBehaviour
 {
-    public int ballSpeed;
+    public float ballSpeed;
     Vector3 direction;
 
     // Start is called before the first frame update
@@ -22,34 +22,47 @@ public class BallMovement : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         float x = direction.x;
+        float y = direction.y;
         Vector3 orthogonalVector = collision.contacts[0].point - transform.position;
         float collisionAngle = Vector3.Angle(orthogonalVector, direction);
-        Debug.Log("OLD Direction: " + direction);
         if (direction.y >= 0 && direction.x >= 0)
         {
-            direction = new Vector3(Random.Range(30, 45) + x, Random.Range(-45, -30), 0.0f).normalized;
-            Debug.Log("+,+");
+            if (collision.gameObject.tag == "BounceWall")
+                direction = new Vector3(Random.Range(15, 60), Random.Range(-60, -15), 0.0f).normalized;
+            else if (collision.gameObject.tag == "Racket")
+                direction = new Vector3(Random.Range(-60, -15), Random.Range(15, 60), 0.0f).normalized;
+            else
+            {
+                //TODO: Destroy ball and respawn.
+            }
         }
 
         else if (direction.y >= 0 && direction.x <= 0)
         {
-            direction = new Vector3(Random.Range(-45, -30) - x, Random.Range(-45, -30), 0.0f).normalized;
-            Debug.Log("-,+");
+            if (collision.gameObject.tag == "BounceWall")
+                direction = new Vector3(Random.Range(-60, -15), Random.Range(-60, -15), 0.0f).normalized;
+            else if (collision.gameObject.tag == "Racket")
+                direction = new Vector3(Random.Range(15, 60), Random.Range(15, 60), 0.0f).normalized;
         }
 
         else if (direction.y <= 0 && direction.x >= 0)
         {
-            direction = new Vector3(Random.Range(30, 45) + x, Random.Range(30, 45), 0.0f).normalized;
-            Debug.Log("+,-");
+            if (collision.gameObject.tag == "BounceWall")
+                direction = new Vector3(Random.Range(15, 60), Random.Range(15, 60), 0.0f).normalized;
+            else if (collision.gameObject.tag == "Racket")
+                direction = new Vector3(Random.Range(-60, -15), Random.Range(-60, -15), 0.0f).normalized;
         }
 
         else
         {
-            direction = new Vector3(Random.Range(-45, -30) - x, Random.Range(30, 45), 0.0f).normalized;
-            Debug.Log("-,-");
+            if (collision.gameObject.tag == "BounceWall")
+                direction = new Vector3(Random.Range(-60, -15), Random.Range(15, 60), 0.0f).normalized;
+            else if (collision.gameObject.tag == "Racket")
+                direction = new Vector3(Random.Range(15, 60), Random.Range(-60, -15), 0.0f).normalized;
         }
 
-        Debug.Log("NEW Direction: " + direction);
+        if (collision.gameObject.tag == "Racket")
+            ballSpeed += 0.5f;
         transform.Translate(direction * ballSpeed * Time.deltaTime);
     }
 }
