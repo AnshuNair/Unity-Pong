@@ -5,7 +5,8 @@ using UnityEngine;
 public class BallMovement : MonoBehaviour
 {
     public float ballSpeed;
-    Vector3 direction;
+    public Vector3 direction;
+    public GameController gm;
 
     // Start is called before the first frame update
     void Start()
@@ -31,10 +32,6 @@ public class BallMovement : MonoBehaviour
                 direction = new Vector3(Random.Range(15, 60), Random.Range(-60, -15), 0.0f).normalized;
             else if (collision.gameObject.tag == "Racket")
                 direction = new Vector3(Random.Range(-60, -15), Random.Range(15, 60), 0.0f).normalized;
-            else
-            {
-                //TODO: Destroy ball and respawn.
-            }
         }
 
         else if (direction.y >= 0 && direction.x <= 0)
@@ -59,6 +56,12 @@ public class BallMovement : MonoBehaviour
                 direction = new Vector3(Random.Range(-60, -15), Random.Range(15, 60), 0.0f).normalized;
             else if (collision.gameObject.tag == "Racket")
                 direction = new Vector3(Random.Range(15, 60), Random.Range(-60, -15), 0.0f).normalized;
+        }
+
+        if (collision.gameObject.tag == "GoalWall")
+        {
+            gm.SpawnBall();
+            Destroy(this.gameObject);
         }
 
         if (collision.gameObject.tag == "Racket")
