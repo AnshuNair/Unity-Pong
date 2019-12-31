@@ -43,15 +43,14 @@ public class BallMovement : MonoBehaviour
             if (gm.scoreOne >= 5 || gm.scoreTwo >= 5)
             {
                 isGameOver = true;
-                Debug.Log("Game Over!");
                 gm.GameOver.SetActive(true);
                 Text goText = gm.GameOver.GetComponent<Text>();
                 goText.text = "Game Over!";
                 if (gm.scoreOne >= 5)
-                    goText.text += "Player One has Won. Press R to restart.";
+                    goText.text += " Player One has Won.";
                 else if (gm.scoreTwo >= 5)
-                    goText.text += "Player Two has Won. Press R to restart.";
-                //StartCoroutine(gm.restartGame(KeyCode.R));
+                    goText.text += " Player Two has Won.";
+                gm.RestartButton.SetActive(true);
                 Destroy(this.gameObject);
             }
 
