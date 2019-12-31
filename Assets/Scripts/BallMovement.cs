@@ -28,28 +28,15 @@ public class BallMovement : MonoBehaviour
 
         if (collision.gameObject.tag == "GoalWall")
         {
-            if (collision.gameObject.transform.position.x > 0)
-            {
-                gm.scoreOne++;
-                gm.playerOneScore.text = gm.scoreOne.ToString();
-            }
+            gm.lives--;
+            gm.livesText.text = gm.lives.ToString();
 
-            else if (collision.gameObject.transform.position.x < 0)
-            {
-                gm.scoreTwo++;
-                gm.playerTwoScore.text = gm.scoreTwo.ToString();
-            }
-
-            if (gm.scoreOne >= 5 || gm.scoreTwo >= 5)
+            if (gm.lives == 0)
             {
                 isGameOver = true;
                 gm.GameOver.SetActive(true);
                 Text goText = gm.GameOver.GetComponent<Text>();
-                goText.text = "Game Over!";
-                if (gm.scoreOne >= 5)
-                    goText.text += " Player One has Won.";
-                else if (gm.scoreTwo >= 5)
-                    goText.text += " Player Two has Won.";
+                goText.text = "Game Over! You scored: " + gm.scoreText.text;
                 gm.RestartButton.SetActive(true);
                 Destroy(this.gameObject);
             }
@@ -98,8 +85,11 @@ public class BallMovement : MonoBehaviour
                 direction = new Vector3(Random.Range(15, 60), Random.Range(-60, -15), 0.0f).normalized;
         }
 
-        if (collision.gameObject.tag == "Racket")
+        if (collision.gameObject.tag == "Racket") {
             gm.ballSpeed += 0.5f;
+            gm.scoreText.text = ((gm.ballSpeed * 10) - 30).ToString();
+        }
+            
         transform.Translate(direction * gm.ballSpeed * Time.deltaTime);
     }
 }

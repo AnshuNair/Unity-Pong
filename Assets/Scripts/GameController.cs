@@ -6,18 +6,20 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    public Text playerOneScore;
-    public Text playerTwoScore;
+    public Text scoreText;
+    public Text livesText;
     public GameObject RestartButton;
     public GameObject GameOver;
-    public int scoreOne;
-    public int scoreTwo;
+    public int score;
+    public int lives;
     public float ballSpeed;
     public GameObject ball;
 
     void Awake()
     {
         SpawnBall();
+        lives = 5;
+        livesText.text = lives.ToString();
     }
 
     public void SpawnBall()
