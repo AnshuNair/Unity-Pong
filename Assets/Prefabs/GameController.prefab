@@ -43,4 +43,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d212cf6237488304eb0d52a6e62a9d99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerOneScore: {fileID: 6670069485904669577, guid: 3d6421955d5e39e4eb14d0fcbcdf4382,
+    type: 3}
+  playerTwoScore: {fileID: 8684039356113844870, guid: 1c2cef3c4eff1294e9310022a5c33428,
+    type: 3}
+  GameOver: {fileID: 2714815638766290516, guid: a2a10a97974b295419e940ab08ac743c,
+    type: 3}
+  scoreOne: 0
+  scoreTwo: 0
   ball: {fileID: 7051007102998653034, guid: 932fc3e7a8eb68d4f96c2d189a20de5a, type: 3}
