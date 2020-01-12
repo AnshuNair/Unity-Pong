@@ -19,7 +19,6 @@ public class GameController : MonoBehaviour
     public AudioSource racketBoost;
     public AudioSource racketHit;
 
-
     void Awake()
     {
         SpawnBall();

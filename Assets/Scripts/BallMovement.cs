@@ -128,6 +128,8 @@ public class BallMovement : MonoBehaviour
             if (Mathf.Abs(vertDist) <= .15)
             {
                 gm.racketBoost.Play();
+                collision.transform.GetChild(1).gameObject.SetActive(true);
+                collision.transform.GetChild(1).GetComponent<ParticleSystem>().Play();
                 RacketMovement rm = collision.gameObject.GetComponent<RacketMovement>();
                 rm.moveSpeed += 0.5f;
             }
