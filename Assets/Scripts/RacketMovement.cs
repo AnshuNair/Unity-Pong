@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RacketMovement : MonoBehaviour
 {
-    public int moveSpeed = 5;
+    public float moveSpeed = 5f;
 
     void Update()
     {

@@ -14,6 +14,11 @@ public class GameController : MonoBehaviour
     public int lives;
     public float ballSpeed;
     public GameObject ball;
+    public AudioSource bounceWall;
+    public AudioSource goalHit;
+    public AudioSource racketBoost;
+    public AudioSource racketHit;
+
 
     void Awake()
     {

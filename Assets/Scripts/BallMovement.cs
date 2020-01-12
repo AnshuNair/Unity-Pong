@@ -7,12 +7,15 @@ public class BallMovement : MonoBehaviour
 {
     public Vector3 direction;
     GameController gm;
+    Vector3 colliderCenter;
+    Collider col;
 
     // Start is called before the first frame update
     void Start()
     {
         gm = GameObject.Find("GameController").GetComponent<GameController>();
         direction = new Vector3(Random.Range(-30, 45), Random.Range(-30, 45), 0.0f).normalized;
+        col = GetComponent<Collider>();
     }
 
     // Update is called once per frame
@@ -28,6 +31,7 @@ public class BallMovement : MonoBehaviour
 
         if (collision.gameObject.tag == "GoalWall")
         {
+            gm.goalHit.Play();
             gm.lives--;
             gm.livesText.text = gm.lives.ToString();
 
@@ -56,40 +60,81 @@ public class BallMovement : MonoBehaviour
         if (direction.y >= 0 && direction.x >= 0)
         {
             if (collision.gameObject.tag == "BounceWall")
+            {
+                gm.bounceWall.Play();
                 direction = new Vector3(Random.Range(15, 60), Random.Range(-60, -15), 0.0f).normalized;
+            }
+
             else if (collision.gameObject.tag == "Racket")
+            {
+                gm.racketHit.Play();
                 direction = new Vector3(Random.Range(-60, -15), Random.Range(15, 60), 0.0f).normalized;
+            }
         }
 
         else if (direction.y >= 0 && direction.x <= 0)
         {
             if (collision.gameObject.tag == "BounceWall")
+            {
+                gm.bounceWall.Play();
                 direction = new Vector3(Random.Range(-60, -15), Random.Range(-60, -15), 0.0f).normalized;
+            }
+
             else if (collision.gameObject.tag == "Racket")
+            {
+                gm.racketHit.Play();
                 direction = new Vector3(Random.Range(15, 60), Random.Range(15, 60), 0.0f).normalized;
+            }
         }
+
 
         else if (direction.y <= 0 && direction.x >= 0)
         {
             if (collision.gameObject.tag == "BounceWall")
+            {
+                gm.bounceWall.Play();
                 direction = new Vector3(Random.Range(15, 60), Random.Range(15, 60), 0.0f).normalized;
+            }
+
             else if (collision.gameObject.tag == "Racket")
+            {
+                gm.racketHit.Play();
                 direction = new Vector3(Random.Range(-60, -15), Random.Range(-60, -15), 0.0f).normalized;
+            }
+
         }
 
         else
         {
             if (collision.gameObject.tag == "BounceWall")
+            {
+                gm.bounceWall.Play();
                 direction = new Vector3(Random.Range(-60, -15), Random.Range(15, 60), 0.0f).normalized;
+            }
+
             else if (collision.gameObject.tag == "Racket")
+            {
+                gm.racketHit.Play();
                 direction = new Vector3(Random.Range(15, 60), Random.Range(-60, -15), 0.0f).normalized;
+            }
+
         }
 
-        if (collision.gameObject.tag == "Racket") {
+        if (collision.gameObject.tag == "Racket")
+        {
+            colliderCenter = col.bounds.center;
+            ContactPoint contact = collision.contacts[0];
+            float vertDist = collision.transform.position.y - colliderCenter.y;
+            if (Mathf.Abs(vertDist) <= .15)
+            {
+                gm.racketBoost.Play();
+                RacketMovement rm = collision.gameObject.GetComponent<RacketMovement>();
+                rm.moveSpeed += 0.5f;
+            }
             gm.ballSpeed += 0.5f;
             gm.scoreText.text = ((gm.ballSpeed * 10) - 30).ToString();
         }
-            
+
         transform.Translate(direction * gm.ballSpeed * Time.deltaTime);
     }
 }
