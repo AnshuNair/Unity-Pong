@@ -27,7 +27,7 @@ public class BallMovement : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         bool isGameOver = false;
-        gm = GameObject.Find("GameController").GetComponent<GameController>();
+        //gm = GameObject.Find("GameController").GetComponent<GameController>();
 
         if (collision.gameObject.tag == "GoalWall")
         {
@@ -47,7 +47,7 @@ public class BallMovement : MonoBehaviour
 
             if (!isGameOver)
             {
-                gm.SpawnBall();
+                gm.InvokeSpawnBall();
                 Destroy(this.gameObject);
             }
 
