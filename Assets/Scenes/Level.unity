@@ -1187,7 +1187,7 @@ MonoBehaviour:
   score: 0
   lives: 0
   ballSpeed: 3
-  ball: {fileID: 1295386280304616241, guid: 932fc3e7a8eb68d4f96c2d189a20de5a, type: 3}
+  ball: {fileID: 7707389171208469768, guid: 932fc3e7a8eb68d4f96c2d189a20de5a, type: 3}
   bounceWall: {fileID: 117549750}
   goalHit: {fileID: 593557346}
   racketBoost: {fileID: 2106619189}

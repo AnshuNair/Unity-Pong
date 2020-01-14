@@ -20,7 +20,9 @@ public class BallMovement : MonoBehaviour
         direction = new Vector3(Random.Range(-60, 60), Random.Range(-60, 60), 0.0f);
         rotateFire(direction.x, direction.y);
         direction = direction.normalized;
-    }
+        if (gm.ballSpeed > 3)
+            ps.transform.localScale = new Vector3(gm.ballSpeed / 6f, gm.ballSpeed / 6f, gm.ballSpeed / 6f);
+    }   
 
     // Update is called once per frame
     void Update()
@@ -28,7 +30,8 @@ public class BallMovement : MonoBehaviour
         transform.Translate(direction * gm.ballSpeed * Time.deltaTime);
     }
 
-    void rotateFire(float x, float y) {
+    void rotateFire(float x, float y)
+    {
         float angle = Mathf.Atan2(x, y) * Mathf.Rad2Deg;
 
         if (direction.x > 0)
@@ -68,67 +71,39 @@ public class BallMovement : MonoBehaviour
         if (direction.y >= 0 && direction.x >= 0)
         {
             if (collision.gameObject.CompareTag("BounceWall"))
-            {
-                gm.bounceWall.Play();
                 direction = new Vector3(Random.Range(15, 60), Random.Range(-60, -15), 0.0f);
-            }
-
             else if (collision.gameObject.CompareTag("Racket"))
-            {
-                gm.racketHit.Play();
                 direction = new Vector3(Random.Range(-60, -15), Random.Range(15, 60), 0.0f);
-            }
         }
 
         else if (direction.y >= 0 && direction.x <= 0)
         {
             if (collision.gameObject.CompareTag("BounceWall"))
-            {
-                gm.bounceWall.Play();
                 direction = new Vector3(Random.Range(-60, -15), Random.Range(-60, -15), 0.0f);
-            }
-
             else if (collision.gameObject.CompareTag("Racket"))
-            {
-                gm.racketHit.Play();
                 direction = new Vector3(Random.Range(15, 60), Random.Range(15, 60), 0.0f);
-            }
         }
 
 
         else if (direction.y <= 0 && direction.x >= 0)
         {
             if (collision.gameObject.CompareTag("BounceWall"))
-            {
-                gm.bounceWall.Play();
                 direction = new Vector3(Random.Range(15, 60), Random.Range(15, 60), 0.0f);
-            }
-
             else if (collision.gameObject.CompareTag("Racket"))
-            {
-                gm.racketHit.Play();
                 direction = new Vector3(Random.Range(-60, -15), Random.Range(-60, -15), 0.0f);
-            }
         }
 
         else
         {
             if (collision.gameObject.CompareTag("BounceWall"))
-            {
-                gm.bounceWall.Play();
                 direction = new Vector3(Random.Range(-60, -15), Random.Range(15, 60), 0.0f);
-            }
-
             else if (collision.gameObject.CompareTag("Racket"))
-            {
-                gm.racketHit.Play();
                 direction = new Vector3(Random.Range(15, 60), Random.Range(-60, -15), 0.0f);
-            }
-
         }
 
         if (collision.gameObject.CompareTag("Racket"))
         {
+            gm.racketHit.Play();
             colliderCenter = col.bounds.center;
             float vertDist = collision.transform.position.y - colliderCenter.y;
             if (Mathf.Abs(vertDist) <= .15)
@@ -140,11 +115,14 @@ public class BallMovement : MonoBehaviour
                 rm.moveSpeed += 0.5f;
             }
             gm.ballSpeed += 0.5f;
+            ps.transform.localScale = new Vector3(gm.ballSpeed / 5f, gm.ballSpeed / 5f, gm.ballSpeed / 5f);
             gm.scoreText.text = ((gm.ballSpeed * 10) - 30).ToString();
         }
 
-        rotateFire(direction.x, direction.y);
+        if (collision.gameObject.CompareTag("BounceWall"))
+            gm.bounceWall.Play();
 
+        rotateFire(direction.x, direction.y);
         direction = direction.normalized;
 
         transform.Translate(direction * gm.ballSpeed * Time.deltaTime);
