@@ -5,6 +5,7 @@ using UnityEngine;
 public class RacketMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
+    public float colorIndicator = 0.1f;
 
     void Update()
     {

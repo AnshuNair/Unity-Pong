@@ -113,6 +113,9 @@ public class BallMovement : MonoBehaviour
                 collision.transform.GetChild(1).GetComponent<ParticleSystem>().Play();
                 RacketMovement rm = collision.gameObject.GetComponent<RacketMovement>();
                 rm.moveSpeed += 0.5f;
+                rm.colorIndicator += 0.2f;
+                rm.gameObject.GetComponent<Renderer>().material.color = Color.blue * rm.colorIndicator;
+
             }
             gm.ballSpeed += 0.5f;
             ps.transform.localScale = new Vector3(gm.ballSpeed / 5f, gm.ballSpeed / 5f, gm.ballSpeed / 5f);
