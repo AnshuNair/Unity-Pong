@@ -9,13 +9,17 @@ public class BallMovement : MonoBehaviour
     GameController gm;
     Vector3 colliderCenter;
     Collider col;
+    ParticleSystem ps;
 
     // Start is called before the first frame update
     void Start()
     {
+        ps = GetComponentInChildren<ParticleSystem>();
         gm = GameObject.Find("GameController").GetComponent<GameController>();
-        direction = new Vector3(Random.Range(-30, 45), Random.Range(-30, 45), 0.0f).normalized;
         col = GetComponent<Collider>();
+        direction = new Vector3(Random.Range(-60, 60), Random.Range(-60, 60), 0.0f);
+        rotateFire(direction.x, direction.y);
+        direction = direction.normalized;
     }
 
     // Update is called once per frame
@@ -24,12 +28,21 @@ public class BallMovement : MonoBehaviour
         transform.Translate(direction * gm.ballSpeed * Time.deltaTime);
     }
 
+    void rotateFire(float x, float y) {
+        float angle = Mathf.Atan2(x, y) * Mathf.Rad2Deg;
+
+        if (direction.x > 0)
+            ps.transform.rotation = Quaternion.Euler(angle + 90, 90, 0);
+        else
+            ps.transform.rotation = Quaternion.Euler(450 + angle, 90, 0);
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         bool isGameOver = false;
         //gm = GameObject.Find("GameController").GetComponent<GameController>();
 
-        if (collision.gameObject.tag == "GoalWall")
+        if (collision.gameObject.CompareTag("GoalWall"))
         {
             gm.goalHit.Play();
             gm.lives--;
@@ -50,80 +63,73 @@ public class BallMovement : MonoBehaviour
                 gm.InvokeSpawnBall();
                 Destroy(this.gameObject);
             }
-
         }
 
-        float x = direction.x;
-        float y = direction.y;
-        Vector3 orthogonalVector = collision.contacts[0].point - transform.position;
-        float collisionAngle = Vector3.Angle(orthogonalVector, direction);
         if (direction.y >= 0 && direction.x >= 0)
         {
-            if (collision.gameObject.tag == "BounceWall")
+            if (collision.gameObject.CompareTag("BounceWall"))
             {
                 gm.bounceWall.Play();
-                direction = new Vector3(Random.Range(15, 60), Random.Range(-60, -15), 0.0f).normalized;
+                direction = new Vector3(Random.Range(15, 60), Random.Range(-60, -15), 0.0f);
             }
 
-            else if (collision.gameObject.tag == "Racket")
+            else if (collision.gameObject.CompareTag("Racket"))
             {
                 gm.racketHit.Play();
-                direction = new Vector3(Random.Range(-60, -15), Random.Range(15, 60), 0.0f).normalized;
+                direction = new Vector3(Random.Range(-60, -15), Random.Range(15, 60), 0.0f);
             }
         }
 
         else if (direction.y >= 0 && direction.x <= 0)
         {
-            if (collision.gameObject.tag == "BounceWall")
+            if (collision.gameObject.CompareTag("BounceWall"))
             {
                 gm.bounceWall.Play();
-                direction = new Vector3(Random.Range(-60, -15), Random.Range(-60, -15), 0.0f).normalized;
+                direction = new Vector3(Random.Range(-60, -15), Random.Range(-60, -15), 0.0f);
             }
 
-            else if (collision.gameObject.tag == "Racket")
+            else if (collision.gameObject.CompareTag("Racket"))
             {
                 gm.racketHit.Play();
-                direction = new Vector3(Random.Range(15, 60), Random.Range(15, 60), 0.0f).normalized;
+                direction = new Vector3(Random.Range(15, 60), Random.Range(15, 60), 0.0f);
             }
         }
 
 
         else if (direction.y <= 0 && direction.x >= 0)
         {
-            if (collision.gameObject.tag == "BounceWall")
+            if (collision.gameObject.CompareTag("BounceWall"))
             {
                 gm.bounceWall.Play();
-                direction = new Vector3(Random.Range(15, 60), Random.Range(15, 60), 0.0f).normalized;
+                direction = new Vector3(Random.Range(15, 60), Random.Range(15, 60), 0.0f);
             }
 
-            else if (collision.gameObject.tag == "Racket")
+            else if (collision.gameObject.CompareTag("Racket"))
             {
                 gm.racketHit.Play();
-                direction = new Vector3(Random.Range(-60, -15), Random.Range(-60, -15), 0.0f).normalized;
+                direction = new Vector3(Random.Range(-60, -15), Random.Range(-60, -15), 0.0f);
             }
-
         }
 
         else
         {
-            if (collision.gameObject.tag == "BounceWall")
+            if (collision.gameObject.CompareTag("BounceWall"))
             {
                 gm.bounceWall.Play();
-                direction = new Vector3(Random.Range(-60, -15), Random.Range(15, 60), 0.0f).normalized;
+                direction = new Vector3(Random.Range(-60, -15), Random.Range(15, 60), 0.0f);
             }
 
-            else if (collision.gameObject.tag == "Racket")
+            else if (collision.gameObject.CompareTag("Racket"))
             {
                 gm.racketHit.Play();
-                direction = new Vector3(Random.Range(15, 60), Random.Range(-60, -15), 0.0f).normalized;
+                direction = new Vector3(Random.Range(15, 60), Random.Range(-60, -15), 0.0f);
             }
 
         }
 
-        if (collision.gameObject.tag == "Racket")
+        if (collision.gameObject.CompareTag("Racket"))
         {
             colliderCenter = col.bounds.center;
-            ContactPoint contact = collision.contacts[0];
             float vertDist = collision.transform.position.y - colliderCenter.y;
             if (Mathf.Abs(vertDist) <= .15)
             {
@@ -136,6 +142,10 @@ public class BallMovement : MonoBehaviour
             gm.ballSpeed += 0.5f;
             gm.scoreText.text = ((gm.ballSpeed * 10) - 30).ToString();
         }
+
+        rotateFire(direction.x, direction.y);
+
+        direction = direction.normalized;
 
         transform.Translate(direction * gm.ballSpeed * Time.deltaTime);
     }
