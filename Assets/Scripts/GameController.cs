@@ -26,12 +26,7 @@ public class GameController : MonoBehaviour
         livesText.text = lives.ToString();
     }
 
-    public void InvokeSpawnBall()
-    {
-        Invoke("SpawnBall", 2f);
-    }
-
-    void SpawnBall()
+    public void SpawnBall()
     {
         GameObject newBall = Instantiate(ball, new Vector3(0.0f, 0.0f, 1.0f), Quaternion.identity);
     }

@@ -10,6 +10,7 @@ public class BallMovement : MonoBehaviour
     Vector3 colliderCenter;
     Collider col;
     ParticleSystem ps;
+    bool movable = false;
 
     // Start is called before the first frame update
     void Start()
@@ -18,19 +19,21 @@ public class BallMovement : MonoBehaviour
         gm = GameObject.Find("GameController").GetComponent<GameController>();
         col = GetComponent<Collider>();
         direction = new Vector3(Random.Range(-60, 60), Random.Range(-60, 60), 0.0f);
-        rotateFire(direction.x, direction.y);
+        RotateFire(direction.x, direction.y);
         direction = direction.normalized;
         if (gm.ballSpeed > 3)
             ps.transform.localScale = new Vector3(gm.ballSpeed / 6f, gm.ballSpeed / 6f, gm.ballSpeed / 6f);
-    }   
+        StartCoroutine("WaitAfterSpawn");
+    }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(direction * gm.ballSpeed * Time.deltaTime);
+        if (movable)
+            transform.Translate(direction * gm.ballSpeed * Time.deltaTime);
     }
 
-    void rotateFire(float x, float y)
+    void RotateFire(float x, float y)
     {
         float angle = Mathf.Atan2(x, y) * Mathf.Rad2Deg;
 
@@ -63,7 +66,7 @@ public class BallMovement : MonoBehaviour
 
             if (!isGameOver)
             {
-                gm.InvokeSpawnBall();
+                gm.SpawnBall();
                 Destroy(this.gameObject);
             }
         }
@@ -125,9 +128,15 @@ public class BallMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("BounceWall"))
             gm.bounceWall.Play();
 
-        rotateFire(direction.x, direction.y);
+        RotateFire(direction.x, direction.y);
         direction = direction.normalized;
 
         transform.Translate(direction * gm.ballSpeed * Time.deltaTime);
+    }
+
+    IEnumerator WaitAfterSpawn()
+    {
+        yield return new WaitForSeconds(2);
+        movable = true;
     }
 }
