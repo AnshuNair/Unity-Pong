@@ -24,7 +24,7 @@ public class HighScoreReader : MonoBehaviour
         }
         else
         {
-            highScoreText.text += " 0";
+            highScoreText.text = "HighScore: 0";
         }
     }
 }

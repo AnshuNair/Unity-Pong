@@ -48,8 +48,6 @@ public class BallMovement : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        bool isGameOver = false;
-
         if (collision.gameObject.CompareTag("GoalWall"))
         {
             gm.goalHit.Play();
@@ -58,7 +56,7 @@ public class BallMovement : MonoBehaviour
 
             if (gm.lives == 0)
             {
-                isGameOver = true;
+                gm.isGameOver = true;
                 gm.GameOverUI.SetActive(true);
                 Text goText = gm.GameOverText.GetComponent<Text>();
                 goText.text = "Game Over! You scored: " + gm.scoreText.text;
@@ -81,6 +79,7 @@ public class BallMovement : MonoBehaviour
                 }
                 else
                 {
+                    highScore = ((int)(gm.ballSpeed * 10) - 30);
                     var file = File.Create(path);
                     file.Close();
                     string serializedData = "HighScore," + ((gm.ballSpeed * 10) - 30).ToString();
@@ -95,7 +94,7 @@ public class BallMovement : MonoBehaviour
                 Destroy(this.gameObject);
             }
 
-            if (!isGameOver)
+            if (!gm.isGameOver)
             {
                 gm.SpawnBall();
                 Destroy(this.gameObject);
