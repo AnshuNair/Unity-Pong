@@ -71,7 +71,9 @@ public class BallMovement : MonoBehaviour
                     if (((int)(gm.ballSpeed * 10) - 30) > highScore)
                     {
                         highScore = ((int)(gm.ballSpeed * 10) - 30);
-                        string serializedData = highScore.ToString();
+                        string serializedData = "HighScore," + highScore.ToString();
+                        var file = File.Create(path);
+                        file.Close();
                         StreamWriter writer = new StreamWriter(path, true);
                         writer.Write(serializedData);
                         writer.Close();
@@ -82,7 +84,7 @@ public class BallMovement : MonoBehaviour
                     highScore = ((int)(gm.ballSpeed * 10) - 30);
                     var file = File.Create(path);
                     file.Close();
-                    string serializedData = "HighScore," + ((gm.ballSpeed * 10) - 30).ToString();
+                    string serializedData = "HighScore," + highScore.ToString();
                     StreamWriter writer = new StreamWriter(path, true);
                     writer.Write(serializedData);
                     writer.Close();
@@ -90,7 +92,7 @@ public class BallMovement : MonoBehaviour
 
                 Text hSText = gm.highScoreText.GetComponent<Text>();
                 hSText.text = "HighScore: " + highScore;
-
+                Time.timeScale = 0;
                 Destroy(this.gameObject);
             }
 
@@ -151,7 +153,8 @@ public class BallMovement : MonoBehaviour
 
             }
             gm.ballSpeed += 0.5f;
-            ps.transform.localScale = new Vector3(gm.ballSpeed / 5f, gm.ballSpeed / 5f, gm.ballSpeed / 5f);
+            if (gm.ballSpeed < 12)
+                ps.transform.localScale = new Vector3(gm.ballSpeed / 5f, gm.ballSpeed / 5f, gm.ballSpeed / 5f);
             gm.scoreText.text = ((gm.ballSpeed * 10) - 30).ToString();
         }
 

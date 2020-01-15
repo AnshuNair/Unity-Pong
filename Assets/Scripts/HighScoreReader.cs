@@ -20,7 +20,7 @@ public class HighScoreReader : MonoBehaviour
             string[] strArray = line.Split(',');
             highScore = int.Parse(strArray[1]);
             reader.Close();
-            highScoreText.text += "HighScore: " + highScore.ToString();
+            highScoreText.text = "HighScore: " + highScore.ToString();
         }
         else
         {

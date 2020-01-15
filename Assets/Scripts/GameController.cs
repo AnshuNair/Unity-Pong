@@ -17,18 +17,19 @@ public class GameController : MonoBehaviour
     public AudioSource racketBoost;
     public AudioSource racketHit;
     bool isPaused = false;
-    public bool isGameOver = true;
+    public bool isGameOver;
 
     void Awake()
     {
         SpawnBall();
         lives = 5;
         livesText.text = lives.ToString();
+        isGameOver = false;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !isGameOver)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             
             if (isPaused)
@@ -59,6 +60,8 @@ public class GameController : MonoBehaviour
     public void GoToLevel(int sceneId)
     {
         SceneManager.LoadScene(sceneId);
+        if (Time.timeScale == 0)
+            Time.timeScale = 1;
     }
 
     public void QuitGame()
