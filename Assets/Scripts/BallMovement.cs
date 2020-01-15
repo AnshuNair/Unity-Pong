@@ -1,7 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
 public class BallMovement : MonoBehaviour
 {
@@ -11,10 +11,13 @@ public class BallMovement : MonoBehaviour
     Collider col;
     ParticleSystem ps;
     bool movable = false;
+    int highScore;
+    string path;
 
     // Start is called before the first frame update
     void Start()
     {
+        path = Application.dataPath + "\\highScore.txt";
         ps = GetComponentInChildren<ParticleSystem>();
         gm = GameObject.Find("GameController").GetComponent<GameController>();
         col = GetComponent<Collider>();
@@ -46,7 +49,6 @@ public class BallMovement : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         bool isGameOver = false;
-        //gm = GameObject.Find("GameController").GetComponent<GameController>();
 
         if (collision.gameObject.CompareTag("GoalWall"))
         {
@@ -57,10 +59,39 @@ public class BallMovement : MonoBehaviour
             if (gm.lives == 0)
             {
                 isGameOver = true;
-                gm.GameOver.SetActive(true);
-                Text goText = gm.GameOver.GetComponent<Text>();
+                gm.GameOverUI.SetActive(true);
+                Text goText = gm.GameOverText.GetComponent<Text>();
                 goText.text = "Game Over! You scored: " + gm.scoreText.text;
-                gm.RestartButton.SetActive(true);
+                
+                if (File.Exists(path))
+                {
+                    StreamReader reader = new StreamReader(path);
+                    string line = reader.ReadLine();
+                    string[] strArray = line.Split(',');
+                    highScore = int.Parse(strArray[1]);
+                    reader.Close();
+                    if (((int)(gm.ballSpeed * 10) - 30) > highScore)
+                    {
+                        highScore = ((int)(gm.ballSpeed * 10) - 30);
+                        string serializedData = highScore.ToString();
+                        StreamWriter writer = new StreamWriter(path, true);
+                        writer.Write(serializedData);
+                        writer.Close();
+                    }
+                }
+                else
+                {
+                    var file = File.Create(path);
+                    file.Close();
+                    string serializedData = "HighScore," + ((gm.ballSpeed * 10) - 30).ToString();
+                    StreamWriter writer = new StreamWriter(path, true);
+                    writer.Write(serializedData);
+                    writer.Close();
+                }
+
+                Text hSText = gm.highScoreText.GetComponent<Text>();
+                hSText.text = "HighScore: " + highScore;
+
                 Destroy(this.gameObject);
             }
 
